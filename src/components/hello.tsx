@@ -1,11 +1,27 @@
-import * as React from "react";
+import * as React from 'react';
 
-export interface HelloProps { compiler: string; framework: string; }
+export interface Props {
+  name: string,
+  enthusiasmlevel?:number;
+}
 
-// 'HelloProps' describes the shape of props.
-// State is never set so we use the '{}' type.
-export class Hello extends React.Component<HelloProps, {}> {
-    render() {
-        return <h1>Hello from {this.props.compiler} and {this.props.framework}!</h1>;
-    }
+function Hello({ name, enthusiasmlevel = 1}: Props) {
+  if (enthusiasmlevel <= 0){
+    throw new Error('you could be a little more enthusiasmlevel')
+  }
+  return(
+    <div className="hello">
+      <div className="greeting">
+        Hello {name + getExclamationMarks(enthusiasmlevel)}
+      </div>
+    </div>
+  )
+}
+
+export default Hello;
+
+// helpers
+
+function getExclamationMarks(numChars: number) {
+  return Array(numChars + 1).join('!');
 }
